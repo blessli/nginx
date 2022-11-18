@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "(gdb) Attach Worker",
+        "type": "cppdbg",
+        "request": "attach",
+        "program": "${workspaceFolder}/objs/nginx",
+        "MIMode": "gdb",
+        "miDebuggerPath": "/usr/bin/gdb",
+        "processId": "5371"
+      }
+    ]
+  }
