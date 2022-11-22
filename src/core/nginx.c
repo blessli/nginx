@@ -207,7 +207,7 @@ main(int argc, char *const *argv)
     if (ngx_strerror_init() != NGX_OK) {
         return 1;
     }
-
+    // 命令行参数解析
     if (ngx_get_options(argc, argv) != NGX_OK) {
         return 1;
     }
@@ -221,7 +221,7 @@ main(int argc, char *const *argv)
     }
 
     /* TODO */ ngx_max_sockets = -1;
-
+    // 时间初始化
     ngx_time_init();
 
 #if (NGX_PCRE)
@@ -230,13 +230,14 @@ main(int argc, char *const *argv)
 
     ngx_pid = ngx_getpid();
     ngx_parent = ngx_getppid();
-
+    // 日志初始化
     log = ngx_log_init(ngx_prefix, ngx_error_log);
     if (log == NULL) {
         return 1;
     }
 
     /* STUB */
+    // ssl初始化
 #if (NGX_OPENSSL)
     ngx_ssl_init(log);
 #endif
@@ -262,7 +263,7 @@ main(int argc, char *const *argv)
     if (ngx_process_options(&init_cycle) != NGX_OK) {
         return 1;
     }
-
+    // 操作系统相关初始化
     if (ngx_os_init(log) != NGX_OK) {
         return 1;
     }
@@ -270,7 +271,7 @@ main(int argc, char *const *argv)
     /*
      * ngx_crc32_table_init() requires ngx_cacheline_size set in ngx_os_init()
      */
-
+    // 一致性hash表初始化
     if (ngx_crc32_table_init() != NGX_OK) {
         return 1;
     }
@@ -288,7 +289,7 @@ main(int argc, char *const *argv)
     if (ngx_preinit_modules() != NGX_OK) {
         return 1;
     }
-
+    // 核心方法
     cycle = ngx_init_cycle(&init_cycle);
     if (cycle == NULL) {
         if (ngx_test_config) {

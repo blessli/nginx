@@ -2,3 +2,4 @@ objs
 logs
 html
 Makefile
+sbin
