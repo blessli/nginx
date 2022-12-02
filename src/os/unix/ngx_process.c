@@ -314,7 +314,7 @@ ngx_init_signals(ngx_log_t *log)
     return NGX_OK;
 }
 
-
+// 核心方法：统一信号处理，根据接收到的信号设置一些标志位
 static void
 ngx_signal_handler(int signo, siginfo_t *siginfo, void *ucontext)
 {

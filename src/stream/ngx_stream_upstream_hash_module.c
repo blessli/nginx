@@ -158,7 +158,7 @@ ngx_stream_upstream_init_hash_peer(ngx_stream_session_t *s,
     return NGX_OK;
 }
 
-
+// 负载均衡 核心函数
 static ngx_int_t
 ngx_stream_upstream_get_hash_peer(ngx_peer_connection_t *pc, void *data)
 {

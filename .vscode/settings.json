@@ -1,0 +1,22 @@
+{
+    "files.associations": {
+        "array": "c",
+        "*.tcc": "c",
+        "bitset": "c",
+        "functional": "c",
+        "memory": "c",
+        "tuple": "c",
+        "fstream": "c",
+        "iomanip": "c",
+        "istream": "c",
+        "limits": "c",
+        "ostream": "c",
+        "numeric": "c",
+        "sstream": "c",
+        "streambuf": "c",
+        "thread": "c",
+        "utility": "c",
+        "exception": "cpp",
+        "new": "cpp"
+    }
+}

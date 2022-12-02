@@ -172,6 +172,7 @@ ngx_stream_block(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
 
     cf->module_type = NGX_STREAM_MODULE;
     cf->cmd_type = NGX_STREAM_MAIN_CONF;
+    // 子模块配置文件解析
     rv = ngx_conf_parse(cf, NULL);
 
     if (rv != NGX_CONF_OK) {

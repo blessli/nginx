@@ -14,6 +14,7 @@ char           **ngx_argv;
 char           **ngx_os_argv;
 
 ngx_int_t        ngx_last_process;
+// master进程中所有子进程相关的状态信息都保存在ngx_processes数组中
 ngx_process_t    ngx_processes[NGX_MAX_PROCESSES];
 
 

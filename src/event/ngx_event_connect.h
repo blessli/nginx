@@ -18,9 +18,9 @@
 #define NGX_PEER_NEXT                2
 #define NGX_PEER_FAILED              4
 
-
+// 主动连接：与up_stream通信
 typedef struct ngx_peer_connection_s  ngx_peer_connection_t;
-
+// 当使用长连接与上游服务器通信时，可通过该方法由连接池中获取一个新连接
 typedef ngx_int_t (*ngx_event_get_peer_pt)(ngx_peer_connection_t *pc,
     void *data);
 typedef void (*ngx_event_free_peer_pt)(ngx_peer_connection_t *pc, void *data,

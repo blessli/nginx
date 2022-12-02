@@ -53,7 +53,7 @@ typedef struct {
     ngx_uint_t            failed;
 } ngx_pool_data_t;
 
-
+// 内存池：小块与大块处理不同
 struct ngx_pool_s {
     ngx_pool_data_t       d;
     size_t                max;

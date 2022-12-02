@@ -779,7 +779,7 @@ ngx_epoll_notify(ngx_event_handler_pt handler)
 
 #endif
 
-
+// 核心方法
 static ngx_int_t
 ngx_epoll_process_events(ngx_cycle_t *cycle, ngx_msec_t timer, ngx_uint_t flags)
 {
@@ -890,11 +890,12 @@ ngx_epoll_process_events(ngx_cycle_t *cycle, ngx_msec_t timer, ngx_uint_t flags)
 
             rev->ready = 1;
             rev->available = -1;
-
+            // 随后执行，就放队列，解决惊群和负载均衡问题的关键
             if (flags & NGX_POST_EVENTS) {
+                // 将epoll_wait产生的一批事件，分到这两个队列中
                 queue = rev->accept ? &ngx_posted_accept_events
                                     : &ngx_posted_events;
-
+                // post事件处理机制
                 ngx_post_event(rev, queue);
 
             } else {

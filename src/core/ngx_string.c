@@ -190,8 +190,8 @@ ngx_vslprintf(u_char *buf, u_char *last, const char *fmt, va_list args)
             zero = (u_char) ((*++fmt == '0') ? '0' : ' ');
             width = 0;
             sign = 1;
-            hex = 0;
             max_width = 0;
+            hex = 0;
             frac_width = 0;
             slen = (size_t) -1;
 
