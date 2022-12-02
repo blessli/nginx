@@ -17,7 +17,7 @@ static void ngx_reorder_accept_events(ngx_listening_t *ls);
 static void ngx_close_accepted_connection(ngx_connection_t *c);
 
 /*
-建立连接其实没有那么简单。Nginx出于充分发挥多核CPU架构性能的考虑，使
+Nginx出于充分发挥多核CPU架构性能的考虑，使
 用了多个worker子进程监听相同端口的设计，这样多个子进程在accept建立新连接时会有争
 抢，这会带来著名的“惊群”问题，子进程数量越多问题越明显，这会造成系统性能下降。
 */
@@ -142,7 +142,7 @@ ngx_event_accept(ngx_event_t *ev)
 
         ngx_accept_disabled = ngx_cycle->connection_n / 8
                               - ngx_cycle->free_connection_n;
-
+        // 从连接池中获取一个ngx_connection_t连接对象
         c = ngx_get_connection(s, ev->log);
 
         if (c == NULL) {
@@ -159,7 +159,7 @@ ngx_event_accept(ngx_event_t *ev)
 #if (NGX_STAT_STUB)
         (void) ngx_atomic_fetch_add(ngx_stat_active, 1);
 #endif
-
+        // 创建内存池
         c->pool = ngx_create_pool(ls->pool_size, ev->log);
         if (c->pool == NULL) {
             ngx_close_accepted_connection(c);
@@ -303,7 +303,7 @@ ngx_event_accept(ngx_event_t *ev)
 
         }
 #endif
-
+        // 将新连接的读事件添加到epoll中监控
         if (ngx_add_conn && (ngx_event_flags & NGX_USE_EPOLL_EVENT) == 0) {
             if (ngx_add_conn(c) == NGX_ERROR) {
                 ngx_close_accepted_connection(c);
@@ -313,7 +313,7 @@ ngx_event_accept(ngx_event_t *ev)
 
         log->data = NULL;
         log->handler = NULL;
-
+        // 处理新连接
         ls->handler(c);
 
         if (ngx_event_flags & NGX_USE_KQUEUE_EVENT) {

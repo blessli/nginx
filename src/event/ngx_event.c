@@ -217,10 +217,21 @@ ngx_process_events_and_timers(ngx_cycle_t *cycle)
     }
 
     if (ngx_use_accept_mutex) {
+        /*
+        与“惊群”问题的解决方法一样，只有打开了accept_mutex锁，才能实现worker子进程间的
+        负载均衡
+        */
         if (ngx_accept_disabled > 0) {
+            /*
+            在当前使用的连接到达总连接数的7/8时，就不会再处理新连接
+            了，同时，在每次调用process_events时都会将ngx_accept_disabled减1，直到
+            ngx_accept_disabled降到总连接数的7/8以下时，才会调用ngx_trylock_accept_mutex试图去处理
+            新连接事件
+            */
             ngx_accept_disabled--;
 
         } else {
+            // 解决惊群问题
             if (ngx_trylock_accept_mutex(cycle) == NGX_ERROR) {
                 return;
             }
